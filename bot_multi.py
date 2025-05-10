@@ -85,7 +85,7 @@ def load_model(server_id):
         return None, None, None
 
 # ======= Xử lý response =======
-def get_response(msg, model, vectorizer, intents, threshold=0.7):
+def get_response(msg, model, vectorizer, intents, threshold=0.4):
     if not model or not vectorizer:
         return None
     vec = vectorizer.transform([msg.lower()])
