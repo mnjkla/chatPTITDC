@@ -1,0 +1,27 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hi",
+        "hello",
+        "xin chào"
+      ],
+      "responses": [
+        "Chào bạn!",
+        "Hello!"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "bye",
+        "tạm biệt"
+      ],
+      "responses": [
+        "Tạm biệt nhé!",
+        "Hẹn gặp lại!"
+      ]
+    }
+  ]
+}

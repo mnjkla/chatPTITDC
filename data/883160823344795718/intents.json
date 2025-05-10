@@ -1,0 +1,92 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hi",
+        "hello",
+        "xin chào"
+      ],
+      "responses": [
+        "Chào bạn!",
+        "Hello!"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "bye",
+        "tạm biệt"
+      ],
+      "responses": [
+        "Tạm biệt nhé!",
+        "Hẹn gặp lại!"
+      ]
+    },
+    {
+      "tag": "ask_name",
+      "patterns": [
+        "tôi tên gì",
+        "mày biết tao là ai không"
+      ],
+      "responses": [
+        "Tôi là bot, chưa biết bạn tên gì đâu 🤖"
+      ]
+    },
+    {
+      "tag": "coding",
+      "patterns": [
+        "code con bot",
+        "tôi code cái bot này"
+      ],
+      "responses": [
+        "Bạn giỏi thật đó, viết bot luôn nè!"
+      ]
+    },
+    {
+      "tag": "a",
+      "patterns": [
+        "yang là",
+        "yang là ai",
+        "yang là gì",
+        "yang nghĩa là gì"
+      ],
+      "responses": [
+        "Yang là Gay"
+      ]
+    },
+    {
+      "tag": "animal",
+      "patterns": [
+        "con cá là",
+        "cá là gì",
+        "cá là loài gì",
+        "con cá là động vật gì",
+        "con cá sống ở đâu"
+      ],
+      "responses": [
+        "là loại động vật dưới nước"
+      ]
+    },
+    {
+      "tag": "food",
+      "patterns": [
+        "bánh mì",
+        "bánh mì"
+      ],
+      "responses": [
+        "là một loại thức ăn nhanh của Việt nam",
+        "bánh mì là một loại thức ăn nhanh ở Việt Nam"
+      ]
+    },
+    {
+      "tag": "",
+      "patterns": [
+        "yang là"
+      ],
+      "responses": [
+        "a yang <@338964700484337665>"
+      ]
+    }
+  ]
+}
