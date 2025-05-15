@@ -2,38 +2,101 @@
 # Bot Discord AI (ML nhẹ) hỗ trợ mỗi server một model riêng, tự tạo file dữ liệu khi thêm server mới
 
 import discord
+import re
 import os
 import pickle
 import json
 from datetime import datetime
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
-
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
 intents.dm_messages = True  # Bắt tin nhắn DM
 client = discord.Client(intents=intents)
 
+
+
+def preprocess(text):
+    # Viết thường, bỏ dấu câu
+    text = text.lower()
+    text = re.sub(r"[^\w\s]", "", text)
+    return text
+
 # ======= Mẫu intents mặc định =======
 def create_default_intents(path):
     default_data = {
-        "intents": [
-            {
-                "tag": "greeting",
-                "patterns": ["hi", "hello", "xin chào"],
-                "responses": ["Chào bạn!", "Hello!"]
-            },
-            {
-                "tag": "goodbye",
-                "patterns": ["bye", "tạm biệt"],
-                "responses": ["Tạm biệt nhé!", "Hẹn gặp lại!"]
-            }
-        ]
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["hi", "hello", "xin chào", "chào bạn", "chào"],
+      "responses": ["Chào bạn!", "Hello!"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["bye", "tạm biệt"],
+      "responses": ["Tạm biệt nhé!", "Hẹn gặp lại!"]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["cảm ơn", "thanks", "thank you"],
+      "responses": ["Không có gì!", "Rất vui khi giúc bạn!"]
+    },
+    {
+      "tag": "bot_info",
+      "patterns": ["mày là ai", "bot tên gì", "giới thiệu bản thân"],
+      "responses": [
+        "Tôi là chatbot Discord AI hỗ trợ trả lời tự động!",
+        "Tôi có thể ghi nhớ và học hỏi từ admin!"
+      ]
+    },
+    {
+      "tag": "weather",
+      "patterns": ["thời tiết hôm nay thế nào"],
+      "responses": ["Thời tiết hôm nay rất đẹp!"]
+    },
+    {
+      "tag": "time",
+      "patterns": ["bây giờ là mấy giờ"],
+      "responses": ["Tôi không có đồng hồ nhưng bạn có thể xem trên máy tính!"]
+    },
+    {
+      "tag": "name",
+      "patterns": ["tên bạn là gì"],
+      "responses": ["Tên tôi là Chatbot!"]
+    },
+    {
+      "tag": "pending_command",
+      "patterns": ["pending", "pending command", "pending commands"],
+      "responses": ["Là lệnh in ra danh sách câu hỏi cần được trả lời"]
+    },
+    {
+      "tag": "emoji",
+      "patterns": ["hen xui"],
+      "responses": ["Là 1 câu thể hiện sự dứng dưng"]
+    },
+    {
+      "tag": "food",
+      "patterns": ["món ăn yêu thích của bạn là gì"],
+      "responses": ["Phở! Ai lại không thích phở chứ!"]
+    },
+    {
+      "tag": "animal",
+      "patterns": [
+        "cá",
+        "con cá",
+        "cá là gì",
+        "cá sống ở đâu",
+        "cá có biết bơi không"
+      ],
+      "responses": ["Là loài động vật sống dưới nước"]
     }
+  ]
+}
     os.makedirs(path, exist_ok=True)
     with open(f"{path}/intents.json", "w", encoding="utf-8") as f:
         json.dump(default_data, f, ensure_ascii=False, indent=2)
@@ -85,33 +148,49 @@ def load_model(server_id):
         return None, None, None
 
 # ======= Xử lý response =======
-def get_response(msg, model, vectorizer, intents, threshold=0.4):
+import random
+
+def get_response(msg, model, vectorizer, intents, threshold=0.3):
     if not model or not vectorizer:
         return None
-    vec = vectorizer.transform([msg.lower()])
+
+    processed = preprocess(msg)
+    vec = vectorizer.transform([processed])
     probs = model.predict_proba(vec)[0]
     confidence = max(probs)
+
     if confidence < threshold:
         return None
+
     tag = model.predict(vec)[0]
     for intent in intents["intents"]:
         if intent["tag"] == tag:
-            return intent["responses"][0]
+            return random.choice(intent["responses"])  
     return None
+
 
 # ======= Lệnh TRAIN đơn giản =======
 def train_model(server_id):
     path = f"data/{server_id}"
     os.makedirs(path, exist_ok=True)
+    
+
     try:
+        print(f"🔄 Đang huấn luyện lại bot cho server: {server_id}")
         with open(f"{path}/intents.json", encoding="utf-8") as f:
             data = json.load(f)
 
         X, y = [], []
         for intent in data["intents"]:
             for pattern in intent["patterns"]:
-                X.append(pattern.lower())
+                X.append(preprocess(pattern))  # xử lý trước
                 y.append(intent["tag"])
+        print(f"Tổng mẫu train: {len(X)}")
+        print(f"Danh sách tag: {set(y)}")        
+
+        if not X:
+            print("⚠️ Không có dữ liệu để huấn luyện.")
+            return False
 
         vectorizer = CountVectorizer()
         X_vec = vectorizer.fit_transform(X)
@@ -123,10 +202,13 @@ def train_model(server_id):
             pickle.dump(model, f)
         with open(f"{path}/vectorizer.pkl", "wb") as f:
             pickle.dump(vectorizer, f)
+
+        print(f"✅ Train thành công! Tổng câu train: {len(X)}")
         return True
     except Exception as e:
-        print("Train Error:", e)
+        print("❌ Train Error:", e)
         return False
+
 
 # ======= Sự kiện: Bot được thêm vào server mới =======
 @client.event

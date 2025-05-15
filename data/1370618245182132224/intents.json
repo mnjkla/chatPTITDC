@@ -2,26 +2,67 @@
   "intents": [
     {
       "tag": "greeting",
-      "patterns": [
-        "hi",
-        "hello",
-        "xin chào"
-      ],
-      "responses": [
-        "Chào bạn!",
-        "Hello!"
-      ]
+      "patterns": ["hi", "hello", "xin chào", "chào bạn", "chào"],
+      "responses": ["Chào bạn!", "Hello!"]
     },
     {
       "tag": "goodbye",
-      "patterns": [
-        "bye",
-        "tạm biệt"
-      ],
+      "patterns": ["bye", "tạm biệt"],
+      "responses": ["Tạm biệt nhé!", "Hẹn gặp lại!"]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["cảm ơn", "thanks", "thank you"],
+      "responses": ["Không có gì!", "Rất vui khi giúc bạn!"]
+    },
+    {
+      "tag": "bot_info",
+      "patterns": ["mày là ai", "bot tên gì", "giới thiệu bản thân"],
       "responses": [
-        "Tạm biệt nhé!",
-        "Hẹn gặp lại!"
+        "Tôi là chatbot Discord AI hỗ trợ trả lời tự động!",
+        "Tôi có thể ghi nhớ và học hỏi từ admin!"
       ]
+    },
+    {
+      "tag": "weather",
+      "patterns": ["thời tiết hôm nay thế nào"],
+      "responses": ["Thời tiết hôm nay rất đẹp!"]
+    },
+    {
+      "tag": "time",
+      "patterns": ["bây giờ là mấy giờ"],
+      "responses": ["Tôi không có đồng hồ nhưng bạn có thể xem trên máy tính!"]
+    },
+    {
+      "tag": "name",
+      "patterns": ["tên bạn là gì"],
+      "responses": ["Tên tôi là Chatbot!"]
+    },
+    {
+      "tag": "pending_command",
+      "patterns": ["pending", "pending command", "pending commands"],
+      "responses": ["Là lệnh in ra danh sách câu hỏi cần được trả lời"]
+    },
+    {
+      "tag": "emoji",
+      "patterns": ["hen xui"],
+      "responses": ["Là 1 câu thể hiện sự dứng dưng"]
+    },
+    {
+      "tag": "food",
+      "patterns": ["món ăn yêu thích của bạn là gì"],
+      "responses": ["Phở! Ai lại không thích phở chứ!"]
+    },
+    {
+      "tag": "animal",
+      "patterns": [
+        "cá",
+        "con cá",
+        "cá là gì",
+        "cá sống ở đâu",
+        "cá có biết bơi không"
+      ],
+      "responses": ["Là loài động vật sống dưới nước"]
     }
   ]
 }

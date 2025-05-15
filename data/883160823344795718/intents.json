@@ -5,87 +5,86 @@
       "patterns": [
         "hi",
         "hello",
-        "xin chào"
+        "xin chào",
+        "chào bạn",
+        "hello bot"
       ],
       "responses": [
         "Chào bạn!",
-        "Hello!"
+        "Hello!",
+        "Xin chào 👋"
       ]
     },
     {
       "tag": "goodbye",
       "patterns": [
         "bye",
-        "tạm biệt"
+        "tạm biệt",
+        "chào tạm biệt",
+        "see you"
       ],
       "responses": [
         "Tạm biệt nhé!",
-        "Hẹn gặp lại!"
+        "Hẹn gặp lại!",
+        "Bye bye!"
       ]
     },
     {
-      "tag": "ask_name",
+      "tag": "thanks",
       "patterns": [
-        "tôi tên gì",
-        "mày biết tao là ai không"
+        "cảm ơn",
+        "thanks",
+        "thank you",
+        "cảm ơn bạn"
       ],
       "responses": [
-        "Tôi là bot, chưa biết bạn tên gì đâu 🤖"
+        "Không có gì!",
+        "Rất vui khi giúp bạn!",
+        "Bạn cần gì cứ hỏi nhé!"
       ]
     },
     {
-      "tag": "coding",
+      "tag": "bot_info",
       "patterns": [
-        "code con bot",
-        "tôi code cái bot này"
+        "mày là ai",
+        "bot tên gì",
+        "giới thiệu bản thân",
+        "mày biết làm gì"
       ],
       "responses": [
-        "Bạn giỏi thật đó, viết bot luôn nè!"
-      ]
-    },
-    {
-      "tag": "a",
-      "patterns": [
-        "yang là",
-        "yang là ai",
-        "yang là gì",
-        "yang nghĩa là gì"
-      ],
-      "responses": [
-        "Yang là Gay"
-      ]
-    },
-    {
-      "tag": "animal",
-      "patterns": [
-        "con cá là",
-        "cá là gì",
-        "cá là loài gì",
-        "con cá là động vật gì",
-        "con cá sống ở đâu"
-      ],
-      "responses": [
-        "là loại động vật dưới nước"
+        "Tôi là chatbot Discord AI hỗ trợ trả lời tự động!",
+        "Tôi có thể ghi nhớ và học hỏi từ admin!"
       ]
     },
     {
       "tag": "food",
       "patterns": [
         "bánh mì",
-        "bánh mì"
+        "phở",
+        "cơm tấm",
+        "món ăn việt nam"
       ],
       "responses": [
-        "là một loại thức ăn nhanh của Việt nam",
-        "bánh mì là một loại thức ăn nhanh ở Việt Nam"
+        "Ngon đấy! Bạn đang đói à?",
+        "Đó là món ăn truyền thống Việt Nam."
       ]
     },
     {
-      "tag": "",
+      "tag": "animal",
       "patterns": [
-        "yang là"
+        "cá"
       ],
       "responses": [
-        "a yang <@338964700484337665>"
+        "là loài động vật dưới"
+      ]
+    },
+    {
+      "tag": "bot",
+      "patterns": [
+        "adasd"
+      ],
+      "responses": [
+        "Tôi là một bạn chat có thể trả lời câu hỏi giúp bạn"
       ]
     }
   ]
